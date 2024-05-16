@@ -1,6 +1,7 @@
 import { NumpadButton } from "./NumpadButton";
 import { FunctionButton } from "./FunctionButton";
 import "./style.css";
+import { useState } from "react";
 
 /*
   Zadání: Zprovozněte číselník tak, aby se po kliknutí na tlačítka správně skládalo číslo 
@@ -32,21 +33,40 @@ import "./style.css";
 */
 
 export const Ukol4 = () => {
+  const [displayValue, setDisplayValue] = useState("0");
+
+  const handleDigitClick = (digit) => {
+    if (displayValue === "0") {
+      setDisplayValue(String(digit))
+    } else {
+      setDisplayValue(displayValue + String(digit))
+    }
+
+    if (displayValue.length > 9) {
+      setDisplayValue(displayValue)
+    }
+  }
+
+  const handleClearClick = () => {
+    setDisplayValue("0")
+  }
+
+
   return (
     <>
-      <div className="display">0</div>
+      <div className="display">{displayValue}</div>
       <div className="numpad">
-        <NumpadButton digit={1} />
-        <NumpadButton digit={2} />
-        <NumpadButton digit={3} />
-        <NumpadButton digit={4} />
-        <NumpadButton digit={5} />
-        <NumpadButton digit={6} />
-        <NumpadButton digit={7} />
-        <NumpadButton digit={8} />
-        <NumpadButton digit={9} />
-        <NumpadButton digit={0} />
-        <FunctionButton label="C" />
+        <NumpadButton onDigitClick={handleDigitClick} digit={1} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={2} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={3} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={4} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={5} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={6} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={7} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={8} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={9} />
+        <NumpadButton onDigitClick={handleDigitClick} digit={0} />
+        <FunctionButton onFunctionClick={handleClearClick} label="C" />
       </div>
     </>
   );
